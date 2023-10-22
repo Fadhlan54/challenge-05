@@ -680,7 +680,7 @@
         }
       }
     },
-    "/users/1": {
+    "/users/": {
       "get": {
         "tags": ["Users"],
         "security": [
@@ -690,6 +690,18 @@
         ],
         "summary": "Return hasil hit API get user by id",
         "description": "ini API untuk mendapatkan data user berdasarkan id ",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "example": 1
+            },
+            "description": "User ID"
+          }
+        ],
         "responses": {
           "201": {
             "description": "Sukses mendapatkan data user berdasarkan id",
@@ -918,7 +930,7 @@
         }
       }
     },
-    "/users/edit/3": {
+    "/users/edit/": {
       "patch": {
         "tags": ["Users"],
         "security": [
@@ -928,6 +940,18 @@
         ],
         "summary": "Return hasil hit API edit user by id",
         "description": "ini API untuk mengedit data user berdasarkan id ",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "example": 1
+            },
+            "description": "User ID"
+          }
+        ],
         "requestBody": {
           "description": "ini request body untuk edit user",
           "content": {
@@ -1079,7 +1103,7 @@
         }
       }
     },
-    "/users/delete/6": {
+    "/users/delete/": {
       "delete": {
         "tags": ["Users"],
         "security": [
@@ -1089,6 +1113,18 @@
         ],
         "summary": "Return hasil hit API delete user by id",
         "description": "ini API untuk menghapus data user berdasarkan id",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "example": 1
+            },
+            "description": "User ID"
+          }
+        ],
         "responses": {
           "201": {
             "description": "Sukses menghapus data user berdasarkan id"
@@ -1396,12 +1432,24 @@
         }
       }
     },
-    "/cars/2": {
+    "/cars/": {
       "get": {
         "tags": ["Cars"],
         "security": [
           {
             "bearerToken": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "example": 1
+            },
+            "description": "Car ID"
           }
         ],
         "summary": "Return hasil hit API get car by id",
@@ -1700,7 +1748,7 @@
         }
       }
     },
-    "/cars/edit/2": {
+    "/cars/edit/": {
       "patch": {
         "tags": ["Cars"],
         "security": [
@@ -1710,6 +1758,18 @@
         ],
         "summary": "Return hasil hit API edit car by id",
         "description": "ini API untuk mengedit data car berdasarkan id ",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "example": 1
+            },
+            "description": "ID of the car"
+          }
+        ],
         "requestBody": {
           "description": "ini request body utk sukses car",
           "content": {
@@ -1850,7 +1910,7 @@
         }
       }
     },
-    "/cars/delete/6": {
+    "/cars/delete/": {
       "delete": {
         "tags": ["Cars"],
         "security": [
@@ -1860,6 +1920,18 @@
         ],
         "summary": "Return hasil hit API delete car by id",
         "description": "ini API untuk menghapus data car berdasarkan id",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "example": 1
+            },
+            "description": "Car id"
+          }
+        ],
         "responses": {
           "201": {
             "description": "Sukses menghapus data car berdasarkan id",
