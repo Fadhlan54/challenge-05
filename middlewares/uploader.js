@@ -1,15 +1,17 @@
 const multer = require("multer");
 const ApiError = require("../utils/ApiError");
 
-const multerFiltering = (req, file, next) => {
+const multerFiltering = (req, file, cb) => {
   if (
-    file.mimeType == "image/png" ||
-    file.mimeType == "image/jpg" ||
-    file.mimeType == "image/jpeg"
+    file.mimetype == "image/png" ||
+    file.mimetype == "image/jpg" ||
+    file.mimetype == "image/jpeg"
   ) {
     cb(null, true);
   } else {
-    next(ApiError("hanya menerima format gambar .jpg, .jpeg, dan .png"));
+    return cb(
+      new ApiError("hanya menerima format gambar .jpg, .jpeg, dan .png", 400)
+    );
   }
 };
 

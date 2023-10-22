@@ -13,8 +13,8 @@ module.exports = (sequelize, DataTypes) => {
   }
   Car.init(
     {
-      name: DataTypes.STRING,
       model: DataTypes.STRING,
+      type: DataTypes.STRING,
       price: DataTypes.FLOAT,
       imageUrl: DataTypes.STRING,
       createdBy: DataTypes.STRING,

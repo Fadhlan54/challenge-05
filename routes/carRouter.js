@@ -7,7 +7,7 @@ const checkRole = require("../middlewares/checkRole");
 const upload = require("../middlewares/uploader");
 
 router.post(
-  "/",
+  "/create",
   autentikasi,
   checkRole("Superadmin", "Admin"),
   upload.single("image"),
@@ -15,9 +15,15 @@ router.post(
 );
 
 router.get("/", autentikasi, checkRole("Superadmin", "Admin"), Car.findCars);
+router.get(
+  "/:id",
+  autentikasi,
+  checkRole("Superadmin", "Admin"),
+  Car.findCarById
+);
 
 router.patch(
-  "/:id",
+  "/edit/:id",
   autentikasi,
   checkRole("Superadmin", "Admin"),
   upload.single("image"),
@@ -25,7 +31,7 @@ router.patch(
 );
 
 router.delete(
-  "/:id",
+  "/delete/:id",
   autentikasi,
   checkRole("Superadmin", "Admin"),
   Car.deleteCar

@@ -1,5 +1,7 @@
 const { User, Auth } = require("../models");
 const ApiError = require("../utils/ApiError");
+const bcrypt = require("bcrypt");
+const { Op } = require("sequelize");
 
 const createAdmin = async (req, res, next) => {
   try {
@@ -16,7 +18,7 @@ const createAdmin = async (req, res, next) => {
     });
 
     if (checkUser) {
-      next(new ApiError("Email sudah ada", 400));
+      next(new ApiError("Email sudah ada", 409));
     }
 
     // minimum password length
@@ -60,9 +62,21 @@ const createAdmin = async (req, res, next) => {
 };
 
 const findUsers = async (req, res, next) => {
+  const role = req.query.role;
+  const validRoles = ["Superadmin", "Admin", "Member"];
+
   try {
+    const filterCondition = {};
+    if (role) {
+      if (!validRoles.includes(role)) {
+        next(new ApiError(`role '${role}' tidak valid`, 400));
+      }
+      filterCondition.role = role;
+    }
+
     const users = await User.findAll({
-      include: ["Auth", "Shop"],
+      include: ["Auth"],
+      where: filterCondition,
     });
 
     res.status(200).json({
@@ -79,8 +93,12 @@ const findUsers = async (req, res, next) => {
 const findUserById = async (req, res, next) => {
   try {
     const user = await User.findByPk(req.params.id, {
-      include: ["Auth", "Shop"],
+      include: ["Auth"],
     });
+
+    if (!user) {
+      next(new ApiError(`User dengan id: ${req.params.id} tidak ada`, 404));
+    }
 
     res.status(200).json({
       status: "Success",
@@ -94,25 +112,39 @@ const findUserById = async (req, res, next) => {
 };
 
 const UpdateUser = async (req, res, next) => {
-  try {
-    const { name, age, address, email, password, confirmPassword } =
-      req.newUser;
+  const { name, age, address, email, password, confirmPassword } = req.body;
+  let userId;
 
-    // minimum password length
-    if (password.length < 8) {
-      next(new ApiError("Panjang password minimal 8 karakter", 400));
+  try {
+    if (req.params.id) {
+      userId = req.params.id;
+      const user = User.findByPk(req.userId);
+      if (!user) {
+        next(new ApiError(`User dengan id: ${req.params.id} tidak ada`, 404));
+      }
+    } else {
+      userId = req.user.id;
     }
 
-    // minimum password length
-    if (password !== confirmPassword) {
-      next(new ApiError("password tidak cocok", 400));
+    let hashedPassword;
+    if (password) {
+      // minimum password length
+      if (password.length < 8) {
+        next(new ApiError("Panjang password minimal 8 karakter", 400));
+      }
+
+      // minimum password length
+      if (password !== confirmPassword) {
+        next(new ApiError("password tidak cocok", 400));
+      }
+
+      const saltRounds = 10;
+      hashedPassword = bcrypt.hashSync(password, saltRounds);
     }
 
     // hashing password
-    const saltRounds = 10;
-    const hashedPassword = bcrypt.hashSync(password, saltRounds);
 
-    const userUpdate = await User.update(
+    await User.update(
       {
         name,
         age,
@@ -120,32 +152,31 @@ const UpdateUser = async (req, res, next) => {
       },
       {
         where: {
-          id: req.params.id,
+          id: userId,
         },
       }
     );
-    const authUpdate = await Auth.update(
+
+    await Auth.update(
       {
         email,
         password: hashedPassword,
       },
       {
         where: {
-          userId: userUpdate.id,
+          userId: userId,
         },
       }
     );
 
+    const updatedData = await User.findByPk(userId, {
+      include: ["Auth"],
+    });
+
     res.status(200).json({
       status: "Success",
-      data: {
-        id: userUpdate.id,
-        name: userUpdate.name,
-        age: userUpdate.age,
-        address: userUpdate.address,
-        role: userUpdate.role,
-        email: authUpdate.email,
-      },
+      message: "User sukses diupdate",
+      data: updatedData,
     });
   } catch (err) {
     next(new ApiError(err.message, 400));
@@ -161,7 +192,7 @@ const deleteUser = async (req, res, next) => {
     });
 
     if (!user) {
-      next(new ApiError("User dengan id tersebut gak ada", 404));
+      next(new ApiError(`User dengan id: ${req.params.id} tidak ada`, 404));
     }
 
     await User.destroy({

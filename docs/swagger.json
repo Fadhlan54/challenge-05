@@ -1,0 +1,1976 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Challenge FSW 2 Chapter 5",
+    "description": "ini challenge kami",
+    "version": "1.0.0"
+  },
+  "tags": [
+    {
+      "name": "Auths",
+      "description": "ini API untuk AUTHS resources"
+    },
+    {
+      "name": "Users",
+      "description": "ini API untuk USERS resources"
+    },
+    {
+      "name": "Cars",
+      "description": "ini API untuk CARS resources"
+    }
+  ],
+  "servers": [
+    {
+      "url": "http://localhost:3000/api/v1"
+    }
+  ],
+  "paths": {
+    "/auth/login": {
+      "post": {
+        "tags": ["Auths"],
+        "summary": "Return hasil hit API login user",
+        "description": "ini API utk login user",
+        "requestBody": {
+          "description": "ini request body utk sukses login user",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string",
+                    "example": "fadhlan@gmail.com"
+                  },
+                  "password": {
+                    "type": "string",
+                    "example": "fadhlan123"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Sukses Member login",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Success"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Berhasil login"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "token": {
+                          "type": "string",
+                          "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcm5hbWUiOiJmYWRobGFuIiwicm9sZSI6IlN1cGVyYWRtaW4iLCJlbWFpbCI6ImZhZGhsYW5AZ21haWwuY29tIiwiaWF0IjoxNjk3OTM5ODMwfQ.hBED_9F3gLAwACOv7uOIeHR_6yKwQBwkf8WIVuEVQzs"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Email atau password tidak ada",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Failed"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "message": {
+                          "type": "string",
+                          "example": "email atau password harus diisi"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/register": {
+      "post": {
+        "tags": ["Auths"],
+        "summary": "Return hasil hit API register member",
+        "description": "ini API utk register member",
+        "requestBody": {
+          "description": "ini request body utk sukses register member",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "example": "rahman"
+                  },
+                  "email": {
+                    "type": "string",
+                    "example": "rahman@gmail.com"
+                  },
+                  "password": {
+                    "type": "string",
+                    "example": "rahman123"
+                  },
+                  "confirmPassword": {
+                    "type": "string",
+                    "example": "rahman123"
+                  },
+                  "age": {
+                    "type": "integer",
+                    "example": 20
+                  },
+                  "address": {
+                    "type": "string",
+                    "example": "Bekasi"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Sukses register",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Success"
+                    },
+                    "data": {
+                      "type": "object",
+                      "example": {
+                        "dataValues": {
+                          "id": 8,
+                          "name": "rahman",
+                          "address": "Bekasi",
+                          "role": "Member",
+                          "age": 20,
+                          "updatedAt": "2023-10-22T02:04:31.713Z",
+                          "createdAt": "2023-10-22T02:04:31.713Z"
+                        },
+                        "_previousDataValues": {
+                          "name": "rahman",
+                          "address": "Bekasi",
+                          "role": "Member",
+                          "age": 20,
+                          "id": 8,
+                          "createdAt": "2023-10-22T02:04:31.713Z",
+                          "updatedAt": "2023-10-22T02:04:31.713Z"
+                        },
+                        "uniqno": 1,
+                        "_changed": {},
+                        "_options": {
+                          "isNewRecord": true,
+                          "_schema": null,
+                          "_schemaDelimiter": ""
+                        },
+                        "isNewRecord": false,
+                        "email": "rahman@gmail.com",
+                        "password": "$2b$10$ycBSH81CDq.vzPrs6It74u5L4uDLF8Kfr6NHATFr8Cjeo5yUSAunC"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "tidak ada nama, email, atau password",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Failed"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "message": {
+                          "type": "string",
+                          "example": "nama, email, dan password harus diisi"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "email sudah terdaftar",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Failed"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "message": {
+                          "type": "string",
+                          "example": "email sudah terdaftar"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/checktoken": {
+      "get": {
+        "tags": ["Auths"],
+        "security": [
+          {
+            "bearerToken": []
+          }
+        ],
+        "summary": "Return hasil hit API checktoken user",
+        "description": "ini API utk checktoken user",
+        "responses": {
+          "200": {
+            "description": "Sukses checktoken",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Success"
+                    },
+                    "data": {
+                      "type": "object",
+                      "example": {
+                        "id": 1,
+                        "name": "fadhlan",
+                        "age": 20,
+                        "address": "Bogor",
+                        "role": "Superadmin",
+                        "email": "fadhlan@gmail.com"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Token tidak ada",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Failed"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "message": {
+                          "type": "string",
+                          "example": "Tokennya tidak ada"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Token tidak valid",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Error"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "message": {
+                          "type": "string",
+                          "example": "Token tidak valid"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/create-admin": {
+      "post": {
+        "tags": ["Users"],
+        "security": [
+          {
+            "bearerToken": []
+          }
+        ],
+        "summary": "Return hasil hit API create user admin",
+        "description": "ini API utk register admin",
+        "requestBody": {
+          "description": "ini request body utk sukses register member",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "example": "Ilyas"
+                  },
+                  "email": {
+                    "type": "string",
+                    "example": "ilyas@gmail.com"
+                  },
+                  "password": {
+                    "type": "string",
+                    "example": "ilyas123"
+                  },
+                  "confirmPassword": {
+                    "type": "string",
+                    "example": "ilyas123"
+                  },
+                  "age": {
+                    "type": "integer",
+                    "example": 20
+                  },
+                  "address": {
+                    "type": "string",
+                    "example": "Bekasi"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Sukses register",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Success"
+                    },
+                    "data": {
+                      "type": "object",
+                      "example": {
+                        "dataValues": {
+                          "id": 9,
+                          "name": "ilyas",
+                          "address": "Bekasi",
+                          "role": "Admin",
+                          "age": 20,
+                          "updatedAt": "2023-10-22T02:04:31.713Z",
+                          "createdAt": "2023-10-22T02:04:31.713Z"
+                        },
+                        "_previousDataValues": {
+                          "name": "Ilyas",
+                          "address": "Bekasi",
+                          "role": "Admin",
+                          "age": 20,
+                          "id": 9,
+                          "createdAt": "2023-10-22T02:04:31.713Z",
+                          "updatedAt": "2023-10-22T02:04:31.713Z"
+                        },
+                        "uniqno": 1,
+                        "_changed": {},
+                        "_options": {
+                          "isNewRecord": true,
+                          "_schema": null,
+                          "_schemaDelimiter": ""
+                        },
+                        "isNewRecord": false,
+                        "email": "ilyas@gmail.com",
+                        "password": "$2b$10$ycBSH81CDq.vzPrs6It74u5L4uDLF8Kfr6NHATFr8Cjeo5yUSAunC"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "tidak ada nama, email, atau password",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Failed"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "message": {
+                          "type": "string",
+                          "example": "nama, email, dan password harus diisi"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Token tidak valid",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Error"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "message": {
+                          "type": "string",
+                          "example": "Token tidak valid"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Akses ditolak",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Error"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "message": {
+                          "type": "string",
+                          "example": "Kamu tidak berkepentingan disini"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "email sudah terdaftar",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Failed"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "message": {
+                          "type": "string",
+                          "example": "email sudah terdaftar"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users": {
+      "get": {
+        "tags": ["Users"],
+        "security": [
+          {
+            "bearerToken": []
+          }
+        ],
+        "summary": "Return hasil hit API get all users",
+        "description": "ini API untuk mendapatkan semua data user",
+        "responses": {
+          "201": {
+            "description": "Sukses mengambil semua data user",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Success"
+                    },
+                    "data": {
+                      "type": "object",
+                      "example": {
+                        "users": [
+                          {
+                            "id": 1,
+                            "name": "fadhlan",
+                            "age": 20,
+                            "address": "Bogor",
+                            "role": "Superadmin",
+                            "createdAt": "2023-10-21T05:45:15.380Z",
+                            "updatedAt": "2023-10-21T05:45:15.380Z",
+                            "Auth": {
+                              "id": 1,
+                              "email": "fadhlan@gmail.com",
+                              "password": "$2a$10$w21UZzMLTtQBAem8xZYqQOjw4gfv/I4x61J3SuCtMZCpVM6p5E9TC",
+                              "userId": 1,
+                              "createdAt": "2023-10-21T05:45:15.389Z",
+                              "updatedAt": "2023-10-21T05:45:15.389Z"
+                            }
+                          },
+                          {
+                            "id": 2,
+                            "name": "Juki",
+                            "age": 20,
+                            "address": "Bekasi",
+                            "role": "Superadmin",
+                            "createdAt": "2023-10-21T05:45:15.380Z",
+                            "updatedAt": "2023-10-21T05:45:15.380Z",
+                            "Auth": {
+                              "id": 2,
+                              "email": "Juki@gmail.com",
+                              "password": "$2a$10$M4V45l3wCRfrXkOBEchvOe6ymWBIsBaTdcKr/smXL7ChUJFescH5q",
+                              "userId": 2,
+                              "createdAt": "2023-10-21T05:45:15.389Z",
+                              "updatedAt": "2023-10-21T05:45:15.389Z"
+                            }
+                          },
+                          {
+                            "id": 3,
+                            "name": "Jose",
+                            "age": 20,
+                            "address": "Bekasi",
+                            "role": "Superadmin",
+                            "createdAt": "2023-10-21T05:45:15.380Z",
+                            "updatedAt": "2023-10-21T08:26:43.619Z",
+                            "Auth": {
+                              "id": 3,
+                              "email": "Jojo@gmail.com",
+                              "password": "$2a$10$isuqDbs2rfTVxZkTE/Vp8.Tt0H/Hhjqpl8cQ6668obTzUWiZ8.5BK",
+                              "userId": 3,
+                              "createdAt": "2023-10-21T05:45:15.389Z",
+                              "updatedAt": "2023-10-21T05:45:15.389Z"
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Token tidak valid",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Error"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "message": {
+                          "type": "string",
+                          "example": "Token tidak valid"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Akses ditolak",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Error"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "message": {
+                          "type": "string",
+                          "example": "Kamu tidak berkepentingan disini"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/1": {
+      "get": {
+        "tags": ["Users"],
+        "security": [
+          {
+            "bearerToken": []
+          }
+        ],
+        "summary": "Return hasil hit API get user by id",
+        "description": "ini API untuk mendapatkan data user berdasarkan id ",
+        "responses": {
+          "201": {
+            "description": "Sukses mendapatkan data user berdasarkan id",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Success"
+                    },
+                    "data": {
+                      "type": "object",
+                      "example": {
+                        "users": {
+                          "id": 1,
+                          "name": "fadhlan",
+                          "age": 20,
+                          "address": "Bogor",
+                          "role": "Superadmin",
+                          "createdAt": "2023-10-21T05:45:15.380Z",
+                          "updatedAt": "2023-10-21T05:45:15.380Z",
+                          "Auth": {
+                            "id": 1,
+                            "email": "fadhlan@gmail.com",
+                            "password": "$2a$10$w21UZzMLTtQBAem8xZYqQOjw4gfv/I4x61J3SuCtMZCpVM6p5E9TC",
+                            "userId": 1,
+                            "createdAt": "2023-10-21T05:45:15.389Z",
+                            "updatedAt": "2023-10-21T05:45:15.389Z"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Token tidak valid",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Error"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "message": {
+                          "type": "string",
+                          "example": "Token tidak valid"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Akses ditolak",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Error"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "message": {
+                          "type": "string",
+                          "example": "Kamu tidak berkepentingan disini"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "User tidak ada",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Error"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "message": {
+                          "type": "string",
+                          "example": "User dengan id: 1 tidak ada"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/edit": {
+      "patch": {
+        "tags": ["Users"],
+        "security": [
+          {
+            "bearerToken": []
+          }
+        ],
+        "summary": "Return hasil hit API edit user by login",
+        "description": "ini API untuk mengedit data user dengan login",
+        "requestBody": {
+          "description": "ini request body untuk edit user",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "example": "jose"
+                  },
+                  "address": {
+                    "type": "string",
+                    "example": "jakarta"
+                  },
+                  "age": {
+                    "type": "integer",
+                    "example": 24
+                  },
+                  "email": {
+                    "type": "string",
+                    "example": "jose@gmail.com"
+                  },
+                  "password": {
+                    "type": "string",
+                    "example": "josee123"
+                  },
+                  "confirmPassword": {
+                    "type": "string",
+                    "example": "josee123"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Sukses mengedit data user dengan login",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Success"
+                    },
+                    "data": {
+                      "type": "object",
+                      "example": {
+                        "id": 1,
+                        "name": "jose",
+                        "age": 24,
+                        "address": "Jakarta",
+                        "role": "Superadmin",
+                        "createdAt": "2023-10-22T07:53:51.986Z",
+                        "updatedAt": "2023-10-22T08:23:37.388Z",
+                        "Auth": {
+                          "id": 1,
+                          "email": "jose@gmail.com",
+                          "password": "$2b$10$aR8/K7FhtNG6oW8gZfzM7OWvICjO98dEYqLhONTw2ZCwJogi49aIi",
+                          "userId": 1,
+                          "createdAt": "2023-10-22T07:53:51.996Z",
+                          "updatedAt": "2023-10-22T08:23:37.395Z"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Token tidak valid",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Error"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "message": {
+                          "type": "string",
+                          "example": "Token tidak valid"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/edit/3": {
+      "patch": {
+        "tags": ["Users"],
+        "security": [
+          {
+            "bearerToken": []
+          }
+        ],
+        "summary": "Return hasil hit API edit user by id",
+        "description": "ini API untuk mengedit data user berdasarkan id ",
+        "requestBody": {
+          "description": "ini request body untuk edit user",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "example": "ridwan"
+                  },
+                  "address": {
+                    "type": "string",
+                    "example": "Bogor"
+                  },
+                  "age": {
+                    "type": "integer",
+                    "example": 25
+                  },
+                  "email": {
+                    "type": "string",
+                    "example": "ridwan@gmail.com"
+                  },
+                  "password": {
+                    "type": "string",
+                    "example": "ridwan123"
+                  },
+                  "confirmPassword": {
+                    "type": "string",
+                    "example": "ridwan123"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Sukses mengedit data user berdasarkan id",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Success"
+                    },
+                    "data": {
+                      "type": "object",
+                      "example": {
+                        "id": 3,
+                        "name": "Ridwan",
+                        "age": 25,
+                        "address": "Bogor",
+                        "role": "Superadmin",
+                        "createdAt": "2023-10-22T07:53:51.986Z",
+                        "updatedAt": "2023-10-22T08:23:37.388Z",
+                        "Auth": {
+                          "id": 3,
+                          "email": "ridwan@gmail.com",
+                          "password": "$2b$10$aR8/K7FhtNG6oW8gZfzM7OWvICjO98dEYqLhONTw2ZCwJogi49aIi",
+                          "userId": 3,
+                          "createdAt": "2023-10-22T07:53:51.996Z",
+                          "updatedAt": "2023-10-22T08:23:37.395Z"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Token tidak valid",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Error"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "message": {
+                          "type": "string",
+                          "example": "Token tidak valid"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Akses ditolak",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Error"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "message": {
+                          "type": "string",
+                          "example": "Kamu tidak berkepentingan disini"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "User tidak ada",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Error"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "message": {
+                          "type": "string",
+                          "example": "User dengan id: 1 tidak ada"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/delete/6": {
+      "delete": {
+        "tags": ["Users"],
+        "security": [
+          {
+            "bearerToken": []
+          }
+        ],
+        "summary": "Return hasil hit API delete user by id",
+        "description": "ini API untuk menghapus data user berdasarkan id",
+        "responses": {
+          "201": {
+            "description": "Sukses menghapus data user berdasarkan id"
+          },
+          "401": {
+            "description": "Token tidak valid",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Error"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "message": {
+                          "type": "string",
+                          "example": "Token tidak valid"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Akses ditolak",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Error"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "message": {
+                          "type": "string",
+                          "example": "Kamu tidak berkepentingan disini"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "User tidak ada",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Error"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "message": {
+                          "type": "string",
+                          "example": "User dengan id: 6 tidak ada"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/cars/create": {
+      "post": {
+        "tags": ["Cars"],
+        "security": [
+          {
+            "bearerToken": []
+          }
+        ],
+        "summary": "Return hasil hit API create cars",
+        "description": "ini API utk create car",
+        "requestBody": {
+          "description": "ini request body utk sukses car",
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "model": {
+                    "type": "string"
+                  },
+                  "type": {
+                    "type": "string",
+                    "example": "small"
+                  },
+                  "price": {
+                    "type": "integer",
+                    "example": 1
+                  },
+                  "image": {
+                    "type": "string",
+                    "format": "binary"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Sukses create car",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Success"
+                    },
+                    "data": {
+                      "type": "object",
+                      "example": {
+                        "newCar": {
+                          "id": 2,
+                          "model": "Toyota",
+                          "type": "Avanza",
+                          "price": 200000,
+                          "createdBy": "fadhlan",
+                          "lastUpdatedBy": "fadhlan",
+                          "imageUrl": null,
+                          "updatedAt": "2023-10-22T07:55:20.050Z",
+                          "createdAt": "2023-10-22T07:55:20.050Z",
+                          "deletedBy": null,
+                          "deletedAt": null
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "data request tidak lengkap",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Failed"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "message": {
+                          "type": "string",
+                          "example": "model, type, price, dan image harus diisi"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Akses ditolak",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Error"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "message": {
+                          "type": "string",
+                          "example": "Kamu tidak berkepentingan disini"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/cars": {
+      "get": {
+        "tags": ["Cars"],
+        "security": [
+          {
+            "bearerToken": []
+          }
+        ],
+        "summary": "Return hasil hit API get all cars",
+        "description": "ini API untuk mendapatkan semua data car",
+        "responses": {
+          "201": {
+            "description": "Sukses mengambil semua data car",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Success"
+                    },
+                    "data": {
+                      "type": "object",
+                      "example": {
+                        "users": [
+                          {
+                            "id": 2,
+                            "model": "Toyota",
+                            "type": "Avanza",
+                            "price": 200000,
+                            "imageUrl": null,
+                            "createdBy": "fadhlan",
+                            "deletedBy": null,
+                            "lastUpdatedBy": "fadhlan",
+                            "deletedAt": null,
+                            "createdAt": "2023-10-22T07:55:20.050Z",
+                            "updatedAt": "2023-10-22T07:55:20.050Z"
+                          }
+                        ]
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Token tidak valid",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Error"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "message": {
+                          "type": "string",
+                          "example": "Token tidak valid"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Akses ditolak",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Error"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "message": {
+                          "type": "string",
+                          "example": "Kamu tidak berkepentingan disini"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/cars/2": {
+      "get": {
+        "tags": ["Cars"],
+        "security": [
+          {
+            "bearerToken": []
+          }
+        ],
+        "summary": "Return hasil hit API get car by id",
+        "description": "ini API untuk mendapatkan data car berdasarkan id ",
+        "responses": {
+          "201": {
+            "description": "Sukses mendapatkan data car berdasarkan id",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Success"
+                    },
+                    "data": {
+                      "type": "object",
+                      "example": {
+                        "users": [
+                          {
+                            "id": 2,
+                            "model": "Toyota",
+                            "type": "Avanza",
+                            "price": 200000,
+                            "imageUrl": null,
+                            "createdBy": "fadhlan",
+                            "deletedBy": null,
+                            "lastUpdatedBy": "fadhlan",
+                            "deletedAt": null,
+                            "createdAt": "2023-10-22T07:55:20.050Z",
+                            "updatedAt": "2023-10-22T07:55:20.050Z"
+                          }
+                        ]
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Token tidak valid",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Error"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "message": {
+                          "type": "string",
+                          "example": "Token tidak valid"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Akses ditolak",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Error"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "message": {
+                          "type": "string",
+                          "example": "Kamu tidak berkepentingan disini"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Car tidak ada",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Error"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "message": {
+                          "type": "string",
+                          "example": "Car dengan id: 2 tidak ada"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/cars/available": {
+      "get": {
+        "tags": ["Cars"],
+        "security": [
+          {
+            "bearerToken": []
+          }
+        ],
+        "summary": "Return hasil hit API get available cars",
+        "description": "ini API untuk mendapatkan data mobil yang tersedia ",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "name",
+            "schema": {
+              "type": "string",
+              "example": "Toyota"
+            },
+            "description": "Nama mobil yang dicari"
+          },
+          {
+            "in": "query",
+            "name": "model",
+            "schema": {
+              "type": "string",
+              "example": "Avanza"
+            },
+            "description": "Model mobil yang dicari"
+          },
+          {
+            "in": "query",
+            "name": "maxPrice",
+            "schema": {
+              "type": "number",
+              "example": 400000
+            },
+            "description": "Harga maksimum mobil yang dicari"
+          },
+          {
+            "in": "query",
+            "name": "minPrice",
+            "schema": {
+              "type": "number",
+              "example": 100000
+            },
+            "description": "Harga minimum mobil yang dicari"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Sukses mendapatkan data mobil yang tersedia",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Success"
+                    },
+                    "data": {
+                      "type": "object",
+                      "example": {
+                        "users": [
+                          {
+                            "id": 1,
+                            "model": "Honda",
+                            "type": "Jazz",
+                            "price": 300000,
+                            "imageUrl": null,
+                            "createdBy": "juki",
+                            "deletedBy": null,
+                            "lastUpdatedBy": "juki",
+                            "deletedAt": null,
+                            "createdAt": "2023-10-22T07:55:20.050Z",
+                            "updatedAt": "2023-10-22T07:55:20.050Z"
+                          },
+                          {
+                            "id": 2,
+                            "model": "Toyota",
+                            "type": "Avanza",
+                            "price": 200000,
+                            "imageUrl": null,
+                            "createdBy": "fadhlan",
+                            "deletedBy": null,
+                            "lastUpdatedBy": "fadhlan",
+                            "deletedAt": null,
+                            "createdAt": "2023-10-22T07:55:20.050Z",
+                            "updatedAt": "2023-10-22T07:55:20.050Z"
+                          },
+                          {
+                            "id": 3,
+                            "model": "Daihatsu",
+                            "type": "Terios",
+                            "price": 280000,
+                            "imageUrl": null,
+                            "createdBy": "fadhlan",
+                            "deletedBy": null,
+                            "lastUpdatedBy": "fadhlan",
+                            "deletedAt": null,
+                            "createdAt": "2023-10-22T07:55:20.050Z",
+                            "updatedAt": "2023-10-22T07:55:20.050Z"
+                          }
+                        ]
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request: minPrice lebih besar dari maxPrice",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "example": "Error"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Nilai minPrice tidak boleh lebih besar dari maxPrice"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Token tidak valid",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Error"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "message": {
+                          "type": "string",
+                          "example": "Token tidak valid"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Data tidak ditemukan",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "example": "Error"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Data tidak ditemukan"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/cars/edit/2": {
+      "patch": {
+        "tags": ["Cars"],
+        "security": [
+          {
+            "bearerToken": []
+          }
+        ],
+        "summary": "Return hasil hit API edit car by id",
+        "description": "ini API untuk mengedit data car berdasarkan id ",
+        "requestBody": {
+          "description": "ini request body utk sukses car",
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "model": {
+                    "type": "string"
+                  },
+                  "type": {
+                    "type": "string",
+                    "example": "small"
+                  },
+                  "price": {
+                    "type": "integer",
+                    "example": 1
+                  },
+                  "image": {
+                    "type": "string",
+                    "format": "binary"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Sukses edit car",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Success"
+                    },
+                    "data": {
+                      "type": "object",
+                      "example": {
+                        "newCar": {
+                          "id": 2,
+                          "model": "Daihatsu",
+                          "type": "Xenia",
+                          "price": 25000,
+                          "createdBy": "fadhlan",
+                          "lastUpdatedBy": "fadhlan",
+                          "imageUrl": null,
+                          "updatedAt": "2023-10-22T07:55:20.050Z",
+                          "createdAt": "2023-10-22T07:55:20.050Z",
+                          "deletedBy": null,
+                          "deletedAt": null
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Token tidak valid",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Error"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "message": {
+                          "type": "string",
+                          "example": "Token tidak valid"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Akses ditolak",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Error"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "message": {
+                          "type": "string",
+                          "example": "Kamu tidak berkepentingan disini"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "User tidak ada",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Error"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "message": {
+                          "type": "string",
+                          "example": "User dengan id: 1 tidak ada"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/cars/delete/6": {
+      "delete": {
+        "tags": ["Cars"],
+        "security": [
+          {
+            "bearerToken": []
+          }
+        ],
+        "summary": "Return hasil hit API delete car by id",
+        "description": "ini API untuk menghapus data car berdasarkan id",
+        "responses": {
+          "201": {
+            "description": "Sukses menghapus data car berdasarkan id",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Success"
+                    },
+                    "message": {
+                      "type": "object",
+                      "properties": {
+                        "message": {
+                          "type": "string",
+                          "example": "berhasil menghapus data mobil id: 2"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Token tidak valid",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Error"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "message": {
+                          "type": "string",
+                          "example": "Token tidak valid"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Akses ditolak",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Error"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "message": {
+                          "type": "string",
+                          "example": "Kamu tidak berkepentingan disini"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "User tidak ada",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Error"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "message": {
+                          "type": "string",
+                          "example": "User dengan id: 6 tidak ada"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "bearerToken": {
+        "type": "http",
+        "scheme": "bearer"
+      }
+    }
+  }
+}

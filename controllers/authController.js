@@ -6,7 +6,9 @@ const ApiError = require("../utils/ApiError");
 const register = async (req, res, next) => {
   try {
     const { name, email, password, confirmPassword, age, address } = req.body;
-
+    if (!name || !email || !password) {
+      next(new ApiError("nama, email, dan password harus diisi", 400));
+    }
     // validasi untuk check apakah email sudah ada
     const user = await Auth.findOne({
       where: {
@@ -16,7 +18,7 @@ const register = async (req, res, next) => {
 
     // validasi data yang dikirimkan
     if (user) {
-      next(new ApiError("Email sudah ada", 400));
+      next(new ApiError("Email sudah terdaftar", 409));
     }
     if (password.length < 8) {
       next(new ApiError("Password minimal 8 karakter", 400));
@@ -59,6 +61,9 @@ const login = async (req, res, next) => {
   try {
     const { email, password } = req.body;
 
+    if ((!email, !password)) {
+      next(new ApiError("email atau password harus diisi", 400));
+    }
     const user = await Auth.findOne({
       where: {
         email,
@@ -66,13 +71,7 @@ const login = async (req, res, next) => {
       include: ["User"],
     });
 
-    if (
-      user &&
-      bcrypt.compareSync(
-        "fadhlan123",
-        "$2a$10$FYWDK1GRrSiGHyU9aa0qo.L25Ku0dgjZ0hZz384CR2V/HUNJRuBs2"
-      )
-    ) {
+    if (user && bcrypt.compareSync(password, user.password)) {
       const token = jwt.sign(
         {
           id: user.userId,
@@ -89,7 +88,7 @@ const login = async (req, res, next) => {
         data: token,
       });
     } else {
-      next(new ApiError("password salah atau user gak ada", 400));
+      next(new ApiError("email atau password salah", 400));
     }
   } catch (err) {
     next(new ApiError(err.message, 500));

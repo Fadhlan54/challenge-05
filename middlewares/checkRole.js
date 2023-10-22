@@ -4,7 +4,7 @@ const checkRole = (...roles) => {
   return async (req, res, next) => {
     try {
       if (!roles.includes(req.user.role)) {
-        next(new ApiError(`kamu tidak memiliki kepentingan disini`, 401));
+        next(new ApiError(`kamu tidak berkepentingan disini`, 403));
       }
       next();
     } catch (err) {
