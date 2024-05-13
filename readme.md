@@ -1,3 +1,5 @@
-# Berikut adalah dbdiagram dari challenge yang saya buat
+# Binar Car Rental
+
+### Database Diagram
 
 ![My image](docs/dbdiagram.png)
